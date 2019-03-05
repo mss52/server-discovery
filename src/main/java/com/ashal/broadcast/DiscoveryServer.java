@@ -138,13 +138,13 @@ public class DiscoveryServer implements Runnable {
                     ex.printStackTrace();
                     Logger.getLogger(DiscoveryServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                try {
-                    socket.send(sendPacket);
-                    logger.info(String.format("Reply sent to %s:%d",
-                            clientAddress.getHostAddress(), clientPort));
-                } catch (IOException ioe) {
-                    logger.log(Level.SEVERE, "IOException sending service reply", ioe);
-                }
+//                try {
+//                    socket.send(sendPacket);
+//                    logger.info(String.format("Reply sent to %s:%d",
+//                            clientAddress.getHostAddress(), clientPort));
+//                } catch (IOException ioe) {
+//                    logger.log(Level.SEVERE, "IOException sending service reply", ioe);
+//                }
             } else {
                 logger.info(String.format("Packet from %s:%d not a discovery packet",
                         clientAddress.getHostAddress(), clientPort));

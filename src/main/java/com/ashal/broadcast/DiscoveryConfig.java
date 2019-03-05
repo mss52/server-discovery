@@ -22,5 +22,5 @@ public class DiscoveryConfig {
     /**
      * Prefix string that server sends along with his IP address.
      */
-    public static final String DISCOVERY_REPLY = "ASHAL_SERVER_IP ";
+    public static final String DISCOVERY_REPLY = "ASHAL_SERVER_IP";
 }
