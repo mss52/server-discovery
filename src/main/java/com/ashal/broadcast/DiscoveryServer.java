@@ -109,7 +109,7 @@ public class DiscoveryServer implements Runnable {
             // See if the packet holds the correct signature string
             String message = new String(packet.getData()).trim();
             if (message.startsWith(DISCOVERY_REQUEST)) {
-                String reply = DISCOVERY_REPLY + MY_IP;
+                String reply = DISCOVERY_REPLY+" " + MY_IP;
                 byte[] sendData = reply.getBytes();
 
                 // Send the response
