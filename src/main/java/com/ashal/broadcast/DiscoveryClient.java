@@ -51,6 +51,7 @@ public class DiscoveryClient implements Callable<String> {
 //		FutureTask<String> task = new FutureTask<>(client);
 //		ExecutorService exec = Executors.newSingleThreadExecutor();
 //		exec.submit(task);
+        
         // demo how to wait for Future
 //		while( ! task.isDone() ) {
 //			System.out.println("waiting for client");
