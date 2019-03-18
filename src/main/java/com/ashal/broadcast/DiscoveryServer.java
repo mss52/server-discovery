@@ -109,7 +109,7 @@ public class DiscoveryServer implements Runnable {
             // See if the packet holds the correct signature string
             String message = new String(packet.getData()).trim();
             if (message.startsWith(DISCOVERY_REQUEST)) {
-                String reply = DISCOVERY_REPLY+" " + MY_IP;
+                String reply = DISCOVERY_REPLY + " " + MY_IP;
                 byte[] sendData = reply.getBytes();
 
                 // Send the response
@@ -117,23 +117,26 @@ public class DiscoveryServer implements Runnable {
                         sendData.length, clientAddress, clientPort);
                 try {
                     socket.setBroadcast(true);
+                    int i = 3;
+                    while (i > 0) {
+                        listAllBroadcastAddresses().stream().forEach(new Consumer<InetAddress>() {
+                            @Override
+                            public void accept(InetAddress arg0) {
+                                try {
+                                    DatagramPacket sendPacketBroadcast = new DatagramPacket(sendData,
+                                            sendData.length, arg0, clientPort);
 
-                    listAllBroadcastAddresses().stream().forEach(new Consumer<InetAddress>() {
-                        @Override
-                        public void accept(InetAddress arg0) {
-                            try {
-                                DatagramPacket sendPacketBroadcast = new DatagramPacket(sendData,
-                                        sendData.length, arg0, clientPort);
-                                
-                                socket.send(sendPacketBroadcast);
-                                
-                                logger.info(String.format("Reply sent to %s:%d",
-                                        sendPacketBroadcast.getAddress().getHostAddress(), sendPacketBroadcast.getPort()));
-                            } catch (IOException ex) {
-                                Logger.getLogger(DiscoveryServer.class.getName()).log(Level.SEVERE, null, ex);
+                                    socket.send(sendPacketBroadcast);
+
+                                    logger.info(String.format("Reply sent to %s:%d",
+                                            sendPacketBroadcast.getAddress().getHostAddress(), sendPacketBroadcast.getPort()));
+                                } catch (IOException ex) {
+                                    Logger.getLogger(DiscoveryServer.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
-                        }
-                    });
+                        });
+                        i--;
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     Logger.getLogger(DiscoveryServer.class.getName()).log(Level.SEVERE, null, ex);
